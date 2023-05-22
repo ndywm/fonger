@@ -105,7 +105,7 @@ while True:
     if(command!='command_again'):
         AgainCommands.append((command,dec(args)))
     exec(command+"(args)")
-    #except SyntaxError:
-    #    print(Style.BRIGHT+Fore.LIGHTRED_EX+"Nie ma takiej komendy, wpisz /help żeby otrzymać listę komend"+Fore.CYAN+Style.NORMAL)
-    #except NameError:
-    #    print(Style.BRIGHT+Fore.LIGHTRED_EX+"Nie ma takiej komendy, wpisz /help żeby otrzymać listę komend"+Fore.CYAN+Style.NORMAL)
+    except SyntaxError:
+        print(Style.BRIGHT+Fore.LIGHTRED_EX+"Nie ma takiej komendy, wpisz /help żeby otrzymać listę komend"+Fore.CYAN+Style.NORMAL)
+    except NameError:
+        print(Style.BRIGHT+Fore.LIGHTRED_EX+"Nie ma takiej komendy, wpisz /help żeby otrzymać listę komend"+Fore.CYAN+Style.NORMAL)
