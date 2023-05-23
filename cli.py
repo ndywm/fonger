@@ -50,7 +50,7 @@ def command_again(args):
     againargs=args[1]
     try:
         AgainCommands.append((command,dec(args)))
-        exec(command+"(args)")
+        exec(command+"(againargs)")
     except SyntaxError:
         print(Style.BRIGHT+Fore.LIGHTRED_EX+"Nie ma takiej komendy"+Fore.CYAN+Style.NORMAL)
     except NameError:
@@ -68,28 +68,45 @@ def command_add(args):
 		return
 	filename=fonger.addFingerprint(args[0])
 	if filename is None:
-		print("Nie udało się")
+		print(Style.BRIGHT+Fore.LIGHTRED_EX+"BŁĄÐ! Sprawdź, czy podłączono kamerę"+Fore.CYAN+Style.NORMAL)
 	else:
 		print(f"Zapisano nowy odcisk palca jako {filename}")
 
 def command_ident(args):
-	owner=fonger.findOwner()
-	if owner is None:
-		print("brak pasujących odcisków")
-	else:
-		print(f"Odcisk palca należy do {owner}")
+    if len(args)==0:
+        args=[None]
+    for path in args:
+        try:
+            findOwnerResult=fonger.findOwner(path)
+        except FileNotFoundError:
+            print(Style.BRIGHT+Fore.LIGHTRED_EX+f"{path} nie istnieje!"+Fore.CYAN+Style.NORMAL)
+            continue
+        except OSError:
+            print(Style.BRIGHT+Fore.LIGHTRED_EX+"BŁĄÐ! Sprawdź, czy podłączono kamerę"+Fore.CYAN+Style.NORMAL)
+            return
+        owner=findOwnerResult[0]
+        bestScore=findOwnerResult[1]
+        if owner is None:
+            print("brak pasujących odcisków")
+        else:
+            print(f"Odcisk palca należy do {owner}, wynik: {bestScore}")
+
+
 
 def command_set(args):
     try:
         assert len(args)==2
         variable=args[0]
-        assert variable in {"X1","Y1","X2","Y2","ALPHA","BETA"}
-        value=int(args[1])
+        assert variable in {"X1","Y1","X2","Y2","ALPHA","BETA","cap","THRESHOLD","SENSITIVITY"}
+        value=float(args[1])
     except:
         throwwrongargs()
         return
     try:
-        exec(f"fonger.{variable}={value}")
+        if(variable=="cap"):
+            exec(f"fonger.cap={cv2.VideoCapture(value)}")
+        else:
+            exec(f"fonger.{variable}={value}")
         print(f"sukces!")
     except:
         print(Style.BRIGHT+Fore.LIGHTRED_EX+"BŁĄÐ!"+Fore.CYAN+Style.NORMAL)
@@ -118,7 +135,7 @@ while True:
     try:
         if(command!='command_again'):
             AgainCommands.append((command,dec(args)))
-            exec(command+"(args)")
+        exec(command+"(args)")
     except SyntaxError:
         print(Style.BRIGHT+Fore.LIGHTRED_EX+"Nie ma takiej komendy"+Fore.CYAN+Style.NORMAL)
     except NameError:
