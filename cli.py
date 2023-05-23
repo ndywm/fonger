@@ -1,6 +1,8 @@
 from colorama import Fore,Style
 from copy import deepcopy as dec
 import fonger
+import readline
+
 print(Fore.LIGHTYELLOW_EX+"""
 ⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⣶⣿⣿⣿⣿⣿⣿⣿⣶⣦⣀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣄⠀⠀⠀⠀⠀
