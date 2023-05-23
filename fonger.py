@@ -2,10 +2,10 @@ import cv2
 import os
 import numpy as np
 
-#cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(1)
 
-#if not cap.isOpened():
-#    raise IOError("Cannot open webcam")
+if not cap.isOpened():
+    raise IOError("Cannot open webcam")
 
 Y1=100
 Y2=200
