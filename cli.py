@@ -52,9 +52,9 @@ def command_again(args):
         AgainCommands.append((command,dec(args)))
         exec(command+"(args)")
     except SyntaxError:
-        print(Style.BRIGHT+Fore.LIGHTRED_EX+"Nie ma takiej komendy, wpisz /help żeby otrzymać listę komend"+Fore.CYAN+Style.NORMAL)
+        print(Style.BRIGHT+Fore.LIGHTRED_EX+"Nie ma takiej komendy"+Fore.CYAN+Style.NORMAL)
     except NameError:
-        print(Style.BRIGHT+Fore.LIGHTRED_EX+"Nie ma takiej komendy, wpisz /help żeby otrzymać listę komend"+Fore.CYAN+Style.NORMAL)
+        print(Style.BRIGHT+Fore.LIGHTRED_EX+"Nie ma takiej komendy"+Fore.CYAN+Style.NORMAL)
 
 def command_exit(args):
     print("dobranoc, do widzenia!"+Fore.RESET+Style.NORMAL)
@@ -79,6 +79,20 @@ def command_ident(args):
 	else:
 		print(f"Odcisk palca należy do {owner}")
 
+def command_set(args):
+    try:
+        assert len(args)==2
+        variable=args[0]
+        assert variable in {"X1","Y1","X2","Y2","ALPHA","BETA"}
+        value=int(args[1])
+    except:
+        throwwrongargs()
+        return
+    try:
+        exec(f"fonger.{variable}={value}")
+        print(f"sukces!")
+    except:
+        print(Style.BRIGHT+Fore.LIGHTRED_EX+"BŁĄÐ!"+Fore.CYAN+Style.NORMAL)
 def strzala(a):
     a=str(a)
     strzala="}======------"
@@ -101,11 +115,11 @@ while True:
         continue
     args=command[1:]
     command="command_"+command[0]
-    #try:
-    if(command!='command_again'):
-        AgainCommands.append((command,dec(args)))
-    exec(command+"(args)")
+    try:
+        if(command!='command_again'):
+            AgainCommands.append((command,dec(args)))
+            exec(command+"(args)")
     except SyntaxError:
-        print(Style.BRIGHT+Fore.LIGHTRED_EX+"Nie ma takiej komendy, wpisz /help żeby otrzymać listę komend"+Fore.CYAN+Style.NORMAL)
+        print(Style.BRIGHT+Fore.LIGHTRED_EX+"Nie ma takiej komendy"+Fore.CYAN+Style.NORMAL)
     except NameError:
-        print(Style.BRIGHT+Fore.LIGHTRED_EX+"Nie ma takiej komendy, wpisz /help żeby otrzymać listę komend"+Fore.CYAN+Style.NORMAL)
+        print(Style.BRIGHT+Fore.LIGHTRED_EX+"Nie ma takiej komendy"+Fore.CYAN+Style.NORMAL)
