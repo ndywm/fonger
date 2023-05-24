@@ -14,15 +14,21 @@ X2=150
 ALPHA=1.5
 BETA=75
 
+def getCurrentFrame():
+    ret, frame = cap.read()
+    if ret:
+        return np.uint8(cv2.add(cv2.multiply(np.float32(frame[Y1:Y2,X1:X2]),np.array([ALPHA])),BETA))
+    else:
+        return None
+
 
 def addFingerprint(owner):
-    ret, frame = cap.read()
-    filename=None
-    if ret:
-        frame=np.uint8(cv2.add(cv2.multiply(np.float32(frame[Y1:Y2,X1:X2]),np.array([ALPHA])),BETA))
-        filename=f"./data/{owner}_{hash(frame.tobytes())}.bmp"
-        cv2.imwrite(filename, frame)
-    return filename
+    frame=getCurrentFrame()
+    if frame is None:
+        return None
+    filename=f"./data/{owner}_{hash(frame.tobytes())}.bmp"
+    cv2.imwrite(filename, frame)
+
 
 
 
@@ -31,8 +37,8 @@ SENSITIVITY=0.3
 
 def findOwner(path):
     if path is None:
-        ret, sample=cap.read()
-        if not ret:
+        sample=getCurrentFrame()
+        if sample is None:
             raise OSError()
     else:
         sample=cv2.imread(path)
