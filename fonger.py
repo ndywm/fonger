@@ -28,7 +28,7 @@ def addFingerprint(owner):
         return None
     filename=f"./data/{owner}_{hash(frame.tobytes())}.bmp"
     cv2.imwrite(filename, frame)
-
+    return filename
 
 
 
@@ -68,4 +68,4 @@ def findOwner(path):
             return (None,None)
         return (bestMatch.split('_')[0],bestScore)
     else:
-        return None
+        return (None,None)
