@@ -26,7 +26,7 @@ print(Fore.LIGHTYELLOW_EX+"█████  ███  █   █  ███  █
 print(Fore.LIGHTYELLOW_EX+"█     █   █ ██  █ █     █     █   █")
 print(Fore.LIGHTYELLOW_EX+"████  █   █ █ █ █ █  ██ ████  ████ ")
 print(Fore.LIGHTYELLOW_EX+"█     █   █ █  ██ █   █ █     █ █  ")
-print(Fore.LIGHTYELLOW_EX+"█      ███  █   █  ███  █████ █  ██   wersja beta")
+print(Fore.LIGHTYELLOW_EX+"█      ███  █   █  ███  █████ █  ██   wersja 1.0.0")
 print(Fore.LIGHTYELLOW_EX+"\nWitaj w praktycznym frontendzie do palcowania palców\n"+Style.NORMAL+Fore.RESET)
 
 
@@ -131,6 +131,7 @@ def getCommand():
 while True:
     command=getCommand()
     if(command==[]):
+        print()
         continue
     args=command[1:]
     command="command_"+command[0]
